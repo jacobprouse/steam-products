@@ -3,16 +3,25 @@ from urllib.request import urlopen, Request
 import re
 
 
-def printSteamContent(url):
+def steamContent(type):
 
 	#specials
-	#specialUrl = 'http://store.steampowered.com/search/?specials=1&os=win.html'
+	specialUrl = 'http://store.steampowered.com/search/?specials=1&os=win.html'
 
 	#topsellers
-	#topSellUrl = 'http://store.steampowered.com/search/?filter=topsellers&os=win.html'
+	topSellUrl = 'http://store.steampowered.com/search/?filter=topsellers&os=win.html'
 	
 	#upcoming
-	#upcomingUrl = 'http://store.steampowered.com/search/?filter=comingsoon&os=win.html'
+	upcomingUrl = 'http://store.steampowered.com/search/?filter=comingsoon&os=win.html'
+
+	if type == "Top Sellers":
+		url = topSellUrl
+
+	elif type == "Specials":
+		url = specialUrl
+
+	else:
+		url = upcomingUrl
 
 
 	#create request
@@ -30,10 +39,18 @@ def printSteamContent(url):
 	#creating a soup
 	soup = BeautifulSoup(steamHtml, "html.parser")
 
+	#make an array
+	name_array = []
+
 	for links in soup.find_all(href = re.compile("app")):
 
 		#creating array with regex to parse link
 		names = re.findall(r'[A-Z][A-Za-z]*', links.get("href"))
 
-		#joining array
-		print(' '.join(names))
+		#append to an array
+		name_array.append(' '.join(names))
+
+
+		# #joining array
+		# print(' '.join(names))
+	return name_array
