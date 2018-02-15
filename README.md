@@ -1,2 +1,2 @@
 # steam-products
-A small python program that fetches the top sellers list of steam, soon to be more product lists
+A python program that parses the top sellers, specials, and upcoming game lists off of the steam marketplace (CA) and prints them on a GUI using tkinter
